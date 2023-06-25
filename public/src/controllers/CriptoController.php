@@ -36,4 +36,24 @@ class CriptoController extends CriptoMoneda
 
 		return $response->withHeader('Content-Type', 'application/json');
 	}
+
+	public static function GetByNation(Request $request, Response $response, array $args)
+	{
+		$criptos = CriptoMoneda::TraerPorNacionalidad($args['nacion']);
+
+		$payload = json_encode(array("list" => $criptos));
+		$response->getBody()->write($payload);
+
+		return $response->withHeader('Content-Type', 'application/json');
+	}
+
+	public static function GetById(Request $request, Response $response, array $args)
+	{
+		$criptos = CriptoMoneda::TraerPorId($args['id']);
+
+		$payload = json_encode(array("list" => $criptos));
+		$response->getBody()->write($payload);
+
+		return $response->withHeader('Content-Type', 'application/json');
+	}
 }

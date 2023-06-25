@@ -39,4 +39,22 @@ class CriptoMoneda
 		$req->execute();
 		return $req->fetchAll(PDO::FETCH_CLASS, 'CriptoMoneda');
 	}
+
+	public static function TraerPorNacionalidad($nacionalidad)
+	{
+		$objAccesoDatos = AccesoDatos::ObtenerInstancia();
+		$req = $objAccesoDatos->PrepararConsulta("SELECT * FROM criptomonedas WHERE nacionalidad LIKE :nacionalidad");
+		$req->bindValue(':nacionalidad', $nacionalidad);
+		$req->execute();
+		return $req->fetchAll(PDO::FETCH_CLASS, 'CriptoMoneda');
+	}
+
+	public static function TraerPorId($id)
+	{
+		$objAccesoDatos = AccesoDatos::ObtenerInstancia();
+		$req = $objAccesoDatos->PrepararConsulta("SELECT * FROM criptomonedas WHERE id=:id");
+		$req->bindValue(':id', $id);
+		$req->execute();
+		return $req->fetchAll(PDO::FETCH_CLASS, 'CriptoMoneda');
+	}
 }

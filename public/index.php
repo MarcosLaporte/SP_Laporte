@@ -17,7 +17,7 @@ include_once '.\src\controllers\CriptoController.php';
 
 include_once '.\src\middleware\MwParams.php';
 include_once '.\src\middleware\MwTipoUsuario.php';
-include_once '.\src\middleware\MwEsSocio.php';
+include_once '.\src\middleware\MwLogs.php';
 include_once '.\src\middleware\MwCriptoExistente.php';
 
 $app = AppFactory::create();
@@ -30,8 +30,10 @@ $app->group('/usuarios', function (RouteCollectorProxy $group) {
 });
 
 $app->group('/cripto', function (RouteCollectorProxy $group) {
-	$group->post('/alta', \CriptoController::class . ':Add')->add(new MwEsSocio)->add(new MwCriptoExistente)->add(new MwCripto);
+	$group->post('/alta', \CriptoController::class . ':Add')->add(new MwSocio)->add(new MwCriptoExistente)->add(new MwCripto);
 	$group->get('[/]', \CriptoController::class . ':GetAll');
+	$group->get('/nacionalidad/{nacion}', \CriptoController::class . ':GetByNation');
+	$group->get('/id/{id}', \CriptoController::class . ':GetById')->add(new MwLogueado);
 });
 
 
