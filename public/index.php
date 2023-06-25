@@ -11,3 +11,19 @@ use Slim\Routing\RouteCollectorProxy;
 use Slim\Routing\RouteContext;
 
 require __DIR__ . '\..\vendor\autoload.php';
+
+include_once '.\src\controllers\UsuarioController.php';
+
+include_once '.\src\middleware\MwParams.php';
+include_once '.\src\middleware\MwTipoUsuario.php';
+
+$app = AppFactory::create();
+$app->setBasePath('/public');
+$app->addErrorMiddleware(true, true, true);
+$app->addBodyParsingMiddleware();
+
+$app->group('/usuarios', function (RouteCollectorProxy $group) {
+	$group->post('/login', \UsuarioController::class . ':Exists')->add(new MwTipoUsuario())->add(new MwUsuario());
+});
+
+$app->run();
