@@ -16,3 +16,12 @@ INSERT INTO usuarios(mail, clave, tipo) VALUES
     ('johnwick@babayaga.com', '$2y$10$UGUpk43Ux.5D2IN3hG3lM.Ha9LTbIigByGq4sPZ30xXj2tKb.7suG', 0),
     ('tomriddle@gmail.com', '$2y$10$Sg79/Qp/l.T2BqhWQpizhuFlzZL2WrM6Clpq8SwlLAxWBQQyLmwzm', 1);
 /*-----------------------------------------------*/
+DROP TABLE IF EXISTS criptomonedas;
+CREATE TABLE criptomonedas(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	precio FLOAT NOT NULL,
+	nombre varchar(250) NOT NULL,
+	foto varchar(250) NOT NULL,
+	nacionalidad varchar(250) NOT NULL
+) AUTO_INCREMENT = 9001;
+/*-----------------------------------------------*/

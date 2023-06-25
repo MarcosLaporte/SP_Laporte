@@ -18,13 +18,13 @@ class AutentificadorJWT
 			'app' => "Laporte"
 		);
 		
-		return JWT::encode($payload, self::$claveSecreta, self::$tipoEncriptacion);
+		return JWT::encode($payload, self::$claveSecreta, self::$tipoEncriptacion[0]);
 	}
 
 	public static function VerificarToken($token)
 	{
 		if (empty($token)) {
-			throw new Exception("El token esta vacío.");
+			throw new Exception("El token esta vacio.");
 		}
 		try {
 			$decodificado = JWT::decode(
@@ -36,7 +36,7 @@ class AutentificadorJWT
 			throw $e;
 		}
 		if ($decodificado->aud !== self::Aud()) {
-			throw new Exception("No es el usuario válido.");
+			throw new Exception("No es el usuario valido.");
 		}
 	}
 
@@ -44,7 +44,7 @@ class AutentificadorJWT
 	public static function ObtenerPayLoad($token)
 	{
 		if (empty($token)) {
-			throw new Exception("El token esta vacío.");
+			throw new Exception("El token esta vacio.");
 		}
 		return JWT::decode(
 			$token,

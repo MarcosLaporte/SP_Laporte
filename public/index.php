@@ -13,9 +13,11 @@ use Slim\Routing\RouteContext;
 require __DIR__ . '\..\vendor\autoload.php';
 
 include_once '.\src\controllers\UsuarioController.php';
+include_once '.\src\controllers\CriptoController.php';
 
 include_once '.\src\middleware\MwParams.php';
 include_once '.\src\middleware\MwTipoUsuario.php';
+include_once '.\src\middleware\MwEsSocio.php';
 
 $app = AppFactory::create();
 $app->setBasePath('/public');
@@ -25,5 +27,10 @@ $app->addBodyParsingMiddleware();
 $app->group('/usuarios', function (RouteCollectorProxy $group) {
 	$group->post('/login', \UsuarioController::class . ':Exists')->add(new MwTipoUsuario())->add(new MwUsuario());
 });
+
+$app->group('/cripto', function (RouteCollectorProxy $group) {
+	$group->post('/alta', \CriptoController::class . ':Add')->add(new MwEsSocio)->add(new MwCripto);
+});
+
 
 $app->run();

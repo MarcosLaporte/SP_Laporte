@@ -32,15 +32,4 @@ class UsuarioController extends Usuario
 		$response->getBody()->write($payload);
 		return $response->withHeader('Content-Type', 'application/json');
 	}
-
-	public static function test(Request $request, Response $response, array $args)
-	{
-		try{
-			AutentificadorJWT::VerificarToken($_COOKIE['token']);
-			$response->getBody()->write(json_encode(array('msg' => 'todo piola :D')));
-		} catch (Exception $ex) {
-			$response->getBody()->write(json_encode(array('error' => $ex->getMessage())));
-		}
-		return $response->withHeader('Content-Type', 'application/json');
-	}
 }
