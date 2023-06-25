@@ -18,6 +18,7 @@ include_once '.\src\controllers\CriptoController.php';
 include_once '.\src\middleware\MwParams.php';
 include_once '.\src\middleware\MwTipoUsuario.php';
 include_once '.\src\middleware\MwEsSocio.php';
+include_once '.\src\middleware\MwCriptoExistente.php';
 
 $app = AppFactory::create();
 $app->setBasePath('/public');
@@ -25,11 +26,12 @@ $app->addErrorMiddleware(true, true, true);
 $app->addBodyParsingMiddleware();
 
 $app->group('/usuarios', function (RouteCollectorProxy $group) {
-	$group->post('/login', \UsuarioController::class . ':Exists')->add(new MwTipoUsuario())->add(new MwUsuario());
+	$group->post('/login', \UsuarioController::class . ':Login')->add(new MwTipoUsuario())->add(new MwUsuario());
 });
 
 $app->group('/cripto', function (RouteCollectorProxy $group) {
-	$group->post('/alta', \CriptoController::class . ':Add')->add(new MwEsSocio)->add(new MwCripto);
+	$group->post('/alta', \CriptoController::class . ':Add')->add(new MwEsSocio)->add(new MwCriptoExistente)->add(new MwCripto);
+	$group->get('[/]', \CriptoController::class . ':GetAll');
 });
 
 

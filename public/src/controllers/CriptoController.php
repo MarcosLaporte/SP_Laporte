@@ -26,4 +26,14 @@ class CriptoController extends CriptoMoneda
 
 		return $response->withHeader('Content-Type', 'application/json');
 	}
+
+	public static function GetAll(Request $request, Response $response, array $args)
+	{
+		$criptos = CriptoMoneda::TraerTodas();
+
+		$payload = json_encode(array("list" => $criptos));
+		$response->getBody()->write($payload);
+
+		return $response->withHeader('Content-Type', 'application/json');
+	}
 }

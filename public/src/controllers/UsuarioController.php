@@ -7,7 +7,7 @@ include_once __DIR__ . "\..\models\AutentificadorJWT.php";
 
 class UsuarioController extends Usuario
 {
-	public static function Exists(Request $request, Response $response, array $args)
+	public static function Login(Request $request, Response $response, array $args)
 	{
 		$params = $request->getParsedBody();
 		$usuario = Usuario::TraerPorId($params['id']);
