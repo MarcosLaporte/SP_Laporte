@@ -21,8 +21,9 @@ class UsuarioController extends Usuario
 				$payload = json_encode(array('msg' => "OK", 'tipo' => $tipoStr));
 				
 				$jwt = AutentificadorJWT::CrearToken(array('id' => $usuario[0]->id, 'tipo' => $usuario[0]->tipo));
-				setcookie("token", $jwt, time()+900, '/', "localhost", false, true);
+				setcookie("token", $jwt, time()+1800, '/', "localhost", false, true);
 			} else {
+				setcookie("token", " ", time()-3600, '/', "localhost", false, true);
 				$payload = json_encode(array('msg' => "Los datos del usuario #{$params['id']} no coinciden."));
 			}
 		} else {

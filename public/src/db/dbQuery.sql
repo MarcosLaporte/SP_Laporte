@@ -24,4 +24,21 @@ CREATE TABLE criptomonedas(
 	foto varchar(250) NOT NULL,
 	nacionalidad varchar(250) NOT NULL
 ) AUTO_INCREMENT = 9001;
+
+INSERT INTO criptomonedas(precio, nombre, foto, nacionalidad) VALUES
+	(7692383.33, 'Bitcoin', 'public\src\FotosCripto\Bitcoin.jpg', 'USA'),
+	(16.92, 'Dogecoin', 'public\src\FotosCripto\Dogecoin.jpg', 'Japon'),
+	(125653.68, 'KeanuTok', 'public\src\FotosCripto\KeanuTok.jpg', 'Canada');
+/*-----------------------------------------------*/
+DROP TABLE IF EXISTS ventas;
+CREATE TABLE ventas(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	fecha TEXT NOT NULL,
+	cantidad FLOAT NOT NULL,
+	idCripto INT NOT NULL,
+	idCliente INT NOT NULL,
+	foto varchar(250) NOT NULL,
+	CONSTRAINT `idCriptoFK` FOREIGN KEY (idCripto) REFERENCES criptomonedas (id),
+	CONSTRAINT `idClienteFK` FOREIGN KEY (idCliente) REFERENCES usuarios (id)
+) AUTO_INCREMENT = 101;
 /*-----------------------------------------------*/

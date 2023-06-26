@@ -10,7 +10,10 @@ class Archivo
 		$tmpName = $_FILES[$imageKey]["tmp_name"];
 		$destino = $directorio . $nuevoNombre . '.jpg';
 
-		return move_uploaded_file($tmpName, $destino);
+		if (move_uploaded_file($tmpName, $destino))
+			return $destino;
+		else
+			return "N/A";
 	}
 
 	public static function MoverImagen($origen, $destino, $archivo)

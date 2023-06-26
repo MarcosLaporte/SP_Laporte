@@ -1,5 +1,4 @@
 <?php
-#$paramFiles['foto']->getError() == UPLOAD_ERR_OK
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -16,8 +15,7 @@ class CriptoController extends CriptoMoneda
 		$cripto = new CriptoMoneda();
 		$cripto->precio = $params['precio'];
 		$cripto->nombre = $params['nombre'];
-		Archivo::GuardarImagenDePeticion(__DIR__ . "/../../src/FotosCripto/", $cripto->nombre, 'foto');
-		$cripto->foto = "public/src/FotosMesas/$cripto->nombre.jpg";
+		$cripto->foto = Archivo::GuardarImagenDePeticion("public/src/FotosCripto/", $cripto->nombre, 'foto');
 		$cripto->nacionalidad = $params['nacionalidad'];
 		$cripto->CrearCripto();
 

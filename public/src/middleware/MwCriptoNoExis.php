@@ -3,7 +3,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Psr7\Response;
 
-class MwCriptoExistente
+include_once __DIR__ . "\..\models\CriptoMoneda.php";
+
+class MwCriptoNoExis
 {
 	public function __invoke(Request $request, RequestHandler $handler): Response
 	{

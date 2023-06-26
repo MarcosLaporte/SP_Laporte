@@ -54,3 +54,35 @@ class MwCripto
 		return $response;
 	}
 }
+
+class MwVenta
+{
+	public function __invoke(Request $request, RequestHandler $handler): Response
+	{
+		$response = new Response();
+		$params = $request->getParsedBody();
+		$paramFiles = $request->getUploadedFiles();
+
+		if (isset($params['fecha']) && isset($params['cantidad']) && isset($params['idCripto']) && isset($params['idCliente']) && isset($paramFiles['foto'])) {
+			if (
+				!empty($params['fecha'])
+				&& !empty(floatval($params['cantidad']))
+				&& !empty(intval($params['idCripto']))
+				&& !empty($params['idCliente'])
+				&& $paramFiles['foto']->getError() == UPLOAD_ERR_OK
+			) {
+				if (DateTime::createFromFormat('Y-m-d', $params['fecha'])) {
+					$response = $handler->handle($request);
+				} else {
+					$response->getBody()->write("La fecha debe ser AAAA-MM-DD.");
+				}
+			} else {
+				$response->getBody()->write("Revise los datos ingresados!");
+			}
+		} else {
+			$response->getBody()->write("Ingrese los datos de la venta!");
+		}
+
+		return $response;
+	}
+}
