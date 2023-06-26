@@ -15,7 +15,7 @@ class VentaController extends VentaCripto
 
 		$venta = new VentaCripto();
 		$venta->fecha = $params['fecha'];
-		$venta->cant = doubleval($params['cantidad']);
+		$venta->cantidad = doubleval($params['cantidad']);
 		$venta->idCripto = intval($params['idCripto']);
 		$venta->idCliente = intval($params['idCliente']);
 		
@@ -29,6 +29,14 @@ class VentaController extends VentaCripto
 
 		$payload = json_encode(array("msg" => "Venta agregada con exito."));
 		$response->getBody()->write($payload);
+
+		return $response->withHeader('Content-Type', 'application/json');
+	}
+
+	public static function GetAlemanas(Request $request, Response $response, array $args)
+	{
+		$ventas = VentaCripto::TraerEntreFechasNacionalidad('2023-07-10', '2023-07-13', "Alemania");
+		$response->getBody()->write(json_encode(array("list" => $ventas)));
 
 		return $response->withHeader('Content-Type', 'application/json');
 	}

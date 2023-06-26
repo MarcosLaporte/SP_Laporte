@@ -43,7 +43,6 @@ class MwLogueado
 				AutentificadorJWT::VerificarToken($_COOKIE['token']);
 				$response = $handler->handle($request);
 			} catch (Exception $ex) {
-				$response->getBody()->write("Token inválido. Inicie sesión de nuevo.\n");
 				$response->getBody()->write($ex->getMessage());
 			}
 		} else {
