@@ -15,7 +15,8 @@ class MwIdCriptoExis
 		if (!empty(CriptoMoneda::TraerPorId($idCripto))) {
 			$response = $handler->handle($request);
 		} else {
-			$response->getBody()->write("No existe una moneda con ese id!");
+			$response->getBody()->write(json_encode(array("msg" => "No existe una moneda con ese id!")));
+			$response=$response->withStatus(400);
 		}
 
 		return $response;

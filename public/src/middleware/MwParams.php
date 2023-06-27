@@ -18,10 +18,10 @@ class MwUsuario
 			) {
 				$response = $handler->handle($request);
 			} else {
-				$response->getBody()->write("Revise los datos ingresados!");
+				$response->getBody()->write(json_encode(array("msg" => "Revise los datos ingresados!")));
 			}
 		} else {
-			$response->getBody()->write("Ingrese los datos del usuario!");
+			$response->getBody()->write(json_encode(array("msg" => "Ingrese los datos del usuario!")));
 		}
 
 		return $response;
@@ -45,10 +45,10 @@ class MwCripto
 			) {
 				$response = $handler->handle($request);
 			} else {
-				$response->getBody()->write("Revise los datos ingresados!");
+				$response->getBody()->write(json_encode(array("msg" => "Revise los datos ingresados!")));
 			}
 		} else {
-			$response->getBody()->write("Ingrese los datos de la cripto!");
+			$response->getBody()->write(json_encode(array("msg" => "Ingrese los datos de la cripto!")));
 		}
 
 		return $response;
@@ -74,13 +74,13 @@ class MwVenta
 				if (DateTime::createFromFormat('Y-m-d', $params['fecha'])) {
 					$response = $handler->handle($request);
 				} else {
-					$response->getBody()->write("La fecha debe ser AAAA-MM-DD.");
+					$response->getBody()->write(json_encode(array("msg" => "La fecha debe ser AAAA-MM-DD.")));
 				}
 			} else {
-				$response->getBody()->write("Revise los datos ingresados!");
+				$response->getBody()->write(json_encode(array("msg" => "Revise los datos ingresados!")));
 			}
 		} else {
-			$response->getBody()->write("Ingrese los datos de la venta!");
+			$response->getBody()->write(json_encode(array("msg" => "Ingrese los datos de la venta!")));
 		}
 
 		return $response;

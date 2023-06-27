@@ -15,7 +15,7 @@ class CriptoController extends CriptoMoneda
 		$cripto = new CriptoMoneda();
 		$cripto->precio = $params['precio'];
 		$cripto->nombre = $params['nombre'];
-		$cripto->foto = Archivo::GuardarImagenDePeticion("public/src/FotosCripto/", $cripto->nombre, 'foto');
+		$cripto->foto = Archivo::GuardarImagenDePeticion("src/FotosCripto/", $cripto->nombre, 'foto');
 		$cripto->nacionalidad = $params['nacionalidad'];
 		$cripto->CrearCripto();
 
@@ -52,6 +52,52 @@ class CriptoController extends CriptoMoneda
 		$payload = json_encode(array("list" => $criptos));
 		$response->getBody()->write($payload);
 
+		return $response->withHeader('Content-Type', 'application/json');
+	}
+
+	public static function Delete(Request $request, Response $response, array $args)
+	{
+		$params = $request->getParsedBody();
+		$id = $params['idCripto'];
+		$cripto = CriptoMoneda::TraerPorId($id);
+		CriptoMoneda::BorrarUna($id);
+		
+		Archivo::MoverImagen("src/FotosCripto/", "src/CriptoBackUp/", $cripto[0]->nombre . '.jpg');
+
+		$payload = json_encode(array("msg" => "Criptomoneda eliminada!"));
+		$response->getBody()->write($payload);
+
+		return $response->withHeader('Content-Type', 'application/json');
+	}
+
+	public static function Modify(Request $request, Response $response, array $args)
+	{
+		$params = $request->getParsedBody();
+		$id = $params['idCripto'];
+		$cripto = CriptoMoneda::TraerPorId($id);
+
+		if (!empty($cripto)) {
+			$precio = empty($params['precio']) ? $cripto[0]->precio : $params['precio'];
+			$nombre = empty($params['nombre']) ? $cripto[0]->nombre : $params['nombre'];
+			$nacionalidad = empty($params['nacionalidad']) ? $cripto[0]->nacionalidad : $params['nacionalidad'];
+			$cripto[0]->Modificar($precio, $nombre, $nacionalidad);
+			$payload = json_encode(array("msg" => "Criptomoneda modificada!"));
+		} else {
+			$payload = json_encode(array("msg" => "No existe esa cripto!"));
+		}
+		
+		$response->getBody()->write($payload);
+		return $response->withHeader('Content-Type', 'application/json');
+	}
+
+	public static function DescargarCsv(Request $request, Response $response, array $args)
+	{
+		if (CriptoMoneda::DbToCsv("src\db\database.csv"))
+			$payload = json_encode(array("msg" => "Las criptomonedas se bajaron correctamente!"));
+		else
+			$payload = json_encode(array("msg" => "Hubo un problema al bajar las criptomonedas."));
+
+		$response->getBody()->write($payload);
 		return $response->withHeader('Content-Type', 'application/json');
 	}
 }

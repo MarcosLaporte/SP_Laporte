@@ -14,10 +14,10 @@ class MwTipoUsuario
 			if ($params['tipo'] == 0 || $params['tipo'] == 1) {
 				$response = $handler->handle($request);
 			} else {
-				$response->getBody()->write("Revise el tipo ingresado!");
+				$response->getBody()->write(json_encode(array("msg" => "Revise el tipo ingresado!")));
 			}
 		} else {
-			$response->getBody()->write("Ingrese el tipo del usuario!");
+			$response->getBody()->write(json_encode(array("msg" => "Ingrese el tipo del usuario!")));
 		}
 
 		return $response;

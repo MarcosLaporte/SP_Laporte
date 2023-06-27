@@ -18,14 +18,16 @@ class MwAdmin
 				$dataJWT = AutentificadorJWT::ObtenerData($token);
 				if ($dataJWT->tipo == TIPO_ADMIN) {
 					$response = $handler->handle($request);
+					$response->withStatus(200);
 				} else {
-					$response->getBody()->write("Solo los administradores pueden realizar esta acción!");
+					$response->getBody()->write(json_encode(array("msg" => "Solo los administradores pueden realizar esta accion!")));
 				}
 			} catch (Exception $ex) {
 				$response->getBody()->write($ex->getMessage());
 			}
 		} else {
-			$response->getBody()->write("No hay un token registrado. Inicie sesión.");
+			$response->getBody()->write(json_encode(array("msg" => "No hay un token registrado. Inicie sesion.")));
+			$response=$response->withStatus(400);
 		}
 
 		return $response;
@@ -46,7 +48,7 @@ class MwLogueado
 				$response->getBody()->write($ex->getMessage());
 			}
 		} else {
-			$response->getBody()->write("No hay un token registrado. Inicie sesión.");
+			$response->getBody()->write(json_encode(array("msg" => "No hay un token registrado. Inicie sesion.")));
 		}
 
 		return $response;

@@ -33,4 +33,14 @@ class UsuarioController extends Usuario
 		$response->getBody()->write($payload);
 		return $response->withHeader('Content-Type', 'application/json');
 	}
+
+	public static function GetByCripto(Request $request, Response $response, array $args)
+	{
+		$cripto = $args['cripto'];
+
+		$usuarios = Usuario::TraerPorCripto($cripto);
+		$response->getBody()->write(json_encode(array("list" => $usuarios)));
+
+		return $response->withHeader('Content-Type', 'application/json');
+	}
 }

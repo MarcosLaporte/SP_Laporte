@@ -15,7 +15,7 @@ class MwCriptoNoExis
 		if (empty(CriptoMoneda::TraerPorNombre($nombreCripto))) {
 			$response = $handler->handle($request);
 		} else {
-			$response->getBody()->write("Ya existe una moneda con este nombre!");
+			$response->getBody()->write(json_encode(array("msg" => "Ya existe una moneda con este nombre!")));
 		}
 
 		return $response;

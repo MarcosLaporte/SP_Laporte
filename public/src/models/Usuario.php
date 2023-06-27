@@ -49,4 +49,19 @@ class Usuario
 		$req->execute();
 		return $req->fetchAll(PDO::FETCH_CLASS, 'Usuario');
 	}
+
+	public static function TraerPorCripto($nombreCripto)
+	{
+		$objAccesoDatos = AccesoDatos::ObtenerInstancia();
+		$req = $objAccesoDatos->PrepararConsulta(
+			"SELECT usuarios.* FROM usuarios " .
+			"JOIN ventas ON usuarios.id = ventas.idCliente " .
+			"JOIN criptomonedas ON ventas.idCripto = criptomonedas.id " .
+			"WHERE criptomonedas.nombre = :nombre"
+		);
+		$req->bindValue(':nombre', $nombreCripto, PDO::PARAM_STR);
+		$req->execute();
+		return $req->fetchAll(PDO::FETCH_CLASS, 'Usuario');
+	}
+
 }

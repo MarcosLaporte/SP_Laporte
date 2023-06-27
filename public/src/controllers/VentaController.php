@@ -40,4 +40,12 @@ class VentaController extends VentaCripto
 
 		return $response->withHeader('Content-Type', 'application/json');
 	}
+
+	public static function GetAll(Request $request, Response $response, array $args)
+	{
+		$ventas = VentaCripto::TraerTodas();
+		$response->getBody()->write(json_encode(array("list" => $ventas)));
+
+		return $response->withHeader('Content-Type', 'application/json');
+	}
 }

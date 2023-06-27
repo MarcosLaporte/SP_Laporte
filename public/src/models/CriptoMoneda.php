@@ -57,4 +57,49 @@ class CriptoMoneda
 		$req->execute();
 		return $req->fetchAll(PDO::FETCH_CLASS, 'CriptoMoneda');
 	}
+
+	public static function BorrarUna($id)
+	{
+		$objAccesoDatos = AccesoDatos::ObtenerInstancia();
+		
+		$req = $objAccesoDatos->PrepararConsulta("DELETE FROM criptomonedas WHERE id=:id");
+		$req->bindValue(':id', $id);
+		$req->execute();
+		
+		return $objAccesoDatos->ObtenerUltimoId();
+	}
+
+	public function Modificar($precio, $nombre, $nacionalidad)
+	{
+		$objAccesoDatos = AccesoDatos::ObtenerInstancia();
+		
+		$req = $objAccesoDatos->PrepararConsulta("UPDATE criptomonedas SET precio=:precio, nombre=:nombre, nacionalidad=:nacionalidad WHERE id=:id");
+		$req->bindValue(':id', $this->id, PDO::PARAM_INT);
+		$req->bindValue(':precio', (string)$precio, PDO::PARAM_STR);
+		$req->bindValue(':nombre', $nombre, PDO::PARAM_STR);
+		$req->bindValue(':nacionalidad', $nacionalidad, PDO::PARAM_STR);
+		$req->execute();
+		
+		return $objAccesoDatos->ObtenerUltimoId();
+	}
+
+	public static function DbToCsv($rutaArchivo)
+	{
+		$monedas = self::TraerTodas();
+
+		if (!empty($monedas)) {
+			$refArchivo = fopen($rutaArchivo, "w");
+			if ($refArchivo) {
+				foreach ($monedas as $moneda) {
+					$attr = get_object_vars($moneda);
+					$strCoin = implode(',', $attr) . PHP_EOL;
+
+					fwrite($refArchivo, $strCoin);
+				}
+				return fclose($refArchivo);
+			}
+		}
+
+		return false;
+	}
 }

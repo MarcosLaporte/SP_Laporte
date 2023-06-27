@@ -1,11 +1,8 @@
 <?php
-/* 6-(POST)Alta de ventaCripto (id,fecha,cantidad…y demás datos que crea necesarios) además de tener
-una imagen (jpg , jpeg ,png)asociada a la venta que será nombrada por  ->cualquier usuario
-registrado(JWT) */
 
 include_once __DIR__ . "\..\db\AccesoDatos.php";
 
-class VentaCripto extends CriptoController
+class VentaCripto
 {
 	public $id;
 	public $fecha;
@@ -40,7 +37,7 @@ class VentaCripto extends CriptoController
 	{
 		$objAccesoDatos = AccesoDatos::ObtenerInstancia();
 		$req = $objAccesoDatos->PrepararConsulta(
-			"SELECT * FROM ventas " .
+			"SELECT ventas.* FROM ventas " .
 			"JOIN criptomonedas ON ventas.idCripto = criptomonedas.id " .
 			"WHERE ventas.fecha BETWEEN :inicio AND :final " .
 			"AND criptomonedas.nacionalidad = :nacionalidad"

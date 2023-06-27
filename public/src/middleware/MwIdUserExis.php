@@ -15,7 +15,7 @@ class MwIdUserExis
 		if (!empty(Usuario::TraerPorId($idUser))) {
 			$response = $handler->handle($request);
 		} else {
-			$response->getBody()->write("No existe un usuario con ese ID.");
+			$response->getBody()->write(json_encode(array("msg" => "No existe un usuario con ese ID.")));
 		}
 
 		return $response;
