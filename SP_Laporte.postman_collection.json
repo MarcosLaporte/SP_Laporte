@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "2b585caf-e692-4b07-8cfa-bbb1a8b33767",
+		"name": "SP_Laporte",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21191819"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "102",
+							"type": "text"
+						},
+						{
+							"key": "mail",
+							"value": "marcos@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "clave",
+							"value": "UTNFRA",
+							"type": "text"
+						},
+						{
+							"key": "tipo",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/public/usuarios/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"public",
+						"usuarios",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cripto",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "precio",
+							"value": "150000",
+							"type": "text"
+						},
+						{
+							"key": "nombre",
+							"value": "MiMoneda",
+							"type": "text"
+						},
+						{
+							"key": "foto",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "nacionalidad",
+							"value": "Argentina",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/public/cripto/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"public",
+						"cripto",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer Criptos Nacion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/public/cripto/nacionalidad/USA",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"public",
+						"cripto",
+						"nacionalidad",
+						"USA"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer Criptos ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/public/cripto/id/9002",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"public",
+						"cripto",
+						"id",
+						"9002"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nueva Venta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fecha",
+							"value": "2023-07-11",
+							"type": "text"
+						},
+						{
+							"key": "cantidad",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "idCripto",
+							"value": "9005",
+							"type": "text"
+						},
+						{
+							"key": "idCliente",
+							"value": "102",
+							"type": "text"
+						},
+						{
+							"key": "foto",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/public/ventas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"public",
+						"ventas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer Ventas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/public/ventas/alemania",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"public",
+						"ventas",
+						"alemania"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer usuarios por Cripto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/public/usuarios/dogecoin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"public",
+						"usuarios",
+						"dogecoin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cripto CSV",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/public/cripto/csv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"public",
+						"cripto",
+						"csv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Cripto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idCripto",
+							"value": "9002",
+							"type": "text"
+						},
+						{
+							"key": "precio",
+							"value": "3250",
+							"type": "text"
+						},
+						{
+							"key": "nombre",
+							"value": "Monedanueva",
+							"type": "text"
+						},
+						{
+							"key": "nacionalidad",
+							"value": "China",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/public/cripto/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"public",
+						"cripto",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar cripto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idCripto",
+							"value": "9003",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/public/cripto/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"public",
+						"cripto",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
